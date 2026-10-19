@@ -1,0 +1,12 @@
+.columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); list-style: none; padding: 0; margin: 2.25rem 0 0; gap: 2rem; }
+.columns li { border-top: 2px solid var(--color-primary); padding-top: 1rem; }
+.columns p { margin-bottom: 0; }
+.journey { counter-reset: stage; }
+.journey li { counter-increment: stage; }
+.journey li::before { content: '0' counter(stage); color: var(--color-forest); font-size: .85rem; font-weight: 700; }
+.stage { display: block; margin-top: 1rem; font-size: .8rem; color: var(--color-forest); font-weight: 600; }
+.specifications { margin: 2rem 0 0; }
+.specifications div { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1rem; padding-block: 1rem; border-top: 1px solid var(--color-border); }
+.specifications dt { font-weight: 600; }
+.specifications dd { margin: 0; }
+@media (max-width: 700px) { .columns { grid-template-columns: 1fr; gap: 1.5rem; } .specifications div { grid-template-columns: 1fr; gap: .4rem; } }
