@@ -1,3 +1,4 @@
+import ContentImage from './ContentImage'
 import styles from './Section.module.css'
 
 export default function Section({ content, children, tone = 'light' }) {
@@ -8,7 +9,7 @@ export default function Section({ content, children, tone = 'light' }) {
         <h2 id={`${content.id}-title`}>{content.title}</h2>
         <p className={styles.description}>{content.description}</p>
         {children}
-        {content.image && <img className={styles.image} src={content.image.src} alt={content.image.alt} loading="lazy" />}
+        <ContentImage image={content.image} />
       </div>
     </section>
   )

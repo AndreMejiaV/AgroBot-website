@@ -4,4 +4,3 @@
 .dark { background: var(--color-dark-green); color: var(--color-background); }
 .dark :global(.eyebrow) { color: var(--color-accent); }
 .description { max-width: 65ch; margin-bottom: 0; }
-.image { display: block; width: 100%; height: auto; margin-top: 2rem; }

@@ -6,5 +6,9 @@
 .description { max-width: 56ch; font-size: 1.15rem; }
 .link { display: inline-flex; align-items: center; gap: 1.5rem; margin-top: .75rem; padding: .65rem 1rem; background: var(--color-primary); color: var(--color-dark-green); font-weight: 700; text-decoration: none; border-radius: .2rem; }
 .link:hover { background: var(--color-accent); }
+.home a:focus-visible { outline-color: var(--color-accent); }
 .note { margin-top: 2.5rem; font-size: .85rem; }
-.image { display: block; max-width: 100%; height: auto; margin-top: 2rem; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; align-items: center; }
+.visual { margin: 0; }
+@media (min-width: 900px) { .layout:has(.visual) { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
