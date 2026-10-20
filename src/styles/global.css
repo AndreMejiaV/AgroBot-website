@@ -34,3 +34,15 @@ p { margin: 0 0 1rem; }
 .skip-link { position: absolute; top: -100px; left: 1rem; z-index: 10; padding: .75rem 1rem; background: var(--color-white); color: var(--color-text); }
 .skip-link:focus { top: 1rem; }
 @media (max-width: 480px) { .container { width: calc(100% - 2rem); } }
+
+html { scroll-behavior: smooth; }
+.skip-link { z-index: 30; }
+section { scroll-margin-top: 6rem; }
+h4 { line-height: 1.4; }
+button, a { -webkit-tap-highlight-color: transparent; }
+.footer { display: grid; grid-template-columns: 1fr 1fr auto; align-items: center; gap: 1.5rem; }
+.footer p { margin: 0; }
+.footer a { margin: 0; text-underline-offset: .3rem; }
+@media (max-width: 900px) { section { scroll-margin-top: 9rem; } }
+@media (max-width: 600px) { .footer { grid-template-columns: 1fr; gap: .5rem; } section { scroll-margin-top: 10rem; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }

@@ -2,6 +2,58 @@
 
 No necesitas modificar componentes React ni CSS. Edita los objetos de `src/content/`, conserva las comillas y separa los elementos con comas. Guarda los archivos en UTF-8.
 
+## Página independiente «Prototipos»
+
+Abre `/prototipos` desde la barra de navegación o el enlace de Development Journey. El selector permite alternar **Prototipos 2D** y **Maqueta 3D** sin recargar. Las fotografías originales todavía no están incorporadas; no se han añadido sustitutos. Puedes preparar estos seis archivos:
+
+```text
+public/images/prototypes/2d/diseno-01.jpg
+public/images/prototypes/2d/diseno-02.jpg
+public/images/prototypes/2d/diseno-03.jpg
+public/images/prototypes/3d/maqueta-vista-01.jpg
+public/images/prototypes/3d/maqueta-vista-02.jpg
+public/images/prototypes/3d/maqueta-vista-03.jpg
+```
+
+Usa la extensión real de tus originales (JPG, PNG o WebP). No basta con renombrar su extensión. Conserva la imagen completa y todas sus anotaciones. Los nombres anteriores son sugeridos; las rutas en los datos deben coincidir exactamente con los archivos que copies.
+
+### Añadir los tres bocetos
+
+En `src/content/prototypes.js`, edita **`sketches`**. Cada objeto corresponde a un boceto distinto:
+
+```js
+{
+  id: 'design-01',
+  title: 'Diseño 01',
+  description: '',
+  image: '/images/prototypes/2d/diseno-01.jpg',
+  alt: 'Descripción concreta del boceto original y sus anotaciones'
+}
+```
+
+Completa `description` únicamente después de revisar lo visible. No inventes motivos de diseño, comparaciones de superioridad ni resultados técnicos. Para añadir otro boceto, copia un objeto en `sketches` con un `id` único. Para quitarlo, elimina ese objeto. Los textos de introducción y los nombres del selector se editan en `prototypePage`.
+
+### Añadir las tres fotografías de la maqueta
+
+Edita **`physicalModel.views`**, en el mismo archivo. Son tres vistas de **una sola maqueta física**, no tres prototipos. Para cada vista usa:
+
+```js
+{
+  id: 'model-view-01',
+  title: 'Vista 01',
+  image: '/images/prototypes/3d/maqueta-vista-01.jpg',
+  alt: 'Descripción de la perspectiva visible de la misma maqueta física'
+}
+```
+
+Puedes cambiar el título por «Vista frontal» u otro ángulo solo después de revisar la foto. `physicalModel.title` y `prototypePage.modelDescription` contienen la explicación de su propósito visual. No atribuyas funcionamiento a mecanismos o sensores ni pruebas a esta maqueta.
+
+Las miniaturas cambian la fotografía principal. Pulsar una fotografía abre una vista ampliada, cerrable con **Escape** o **Cerrar**. El enlace al original permite examinar las anotaciones con el zoom del navegador. Las imágenes se muestran completas, sin recortes. El selector admite flechas izquierda/derecha, Inicio/Fin y Tab.
+
+Si no tienes una imagen, conserva `image: ''`: aparece un aviso breve y no se solicita un archivo inexistente. Las descripciones vacías no muestran párrafos. Las vistas pendientes siguen siendo seleccionables, pero no abren ampliaciones sin imagen.
+
+La lista anterior `prototypes` se conserva para los registros resumidos de Development Journey; no es la fuente del selector nuevo. Las animaciones de Home siguen intactas. Para probar la nueva ruta directamente usa `npm.cmd run dev` o `npm.cmd run preview`. Al alojar la aplicación en un servidor estático, configura las rutas como `/prototipos` para devolver `index.html` (fallback de SPA).
+
 ## 1. Colocar fotografías
 
 Usa fotografías o diagramas reales del proyecto y con permiso de uso:
@@ -28,7 +80,7 @@ image: {
 }
 ```
 
-La ruta empieza con `/images/`, sin `public`. Respeta mayúsculas y extensión del archivo. El texto `alt` describe lo que se ve; evita frases como «imagen de». Las imágenes mantienen sus proporciones sin recortes. Home, About, Sustainability y las demás secciones usan el mismo formato. Las características tienen su propio `image` dentro de `sections.features.items`.
+La ruta empieza con `/images/`, sin `public`. Respeta mayúsculas y extensión del archivo. El texto `alt` describe lo que se ve; evita frases como «imagen de». Las imágenes de contenido mantienen sus proporciones sin recortes. El fondo de Home conserva proporciones y puede recortarse para cubrir toda la portada; consulta las instrucciones específicas al final. Home, About, Sustainability y las demás secciones usan el mismo formato de datos. Las características tienen su propio `image` dentro de `sections.features.items`.
 
 ## 4. Títulos y descripciones
 
@@ -60,6 +112,7 @@ Abre `src/content/prototypes.js`. Las tres entradas iniciales son ejemplos vací
 ```js
 {
   id: 'prototype-04',
+  published: false,
   title: 'Nombre de la etapa documentada',
   description: '',
   image: '',
@@ -71,7 +124,9 @@ Abre `src/content/prototypes.js`. Las tres entradas iniciales son ejemplos vací
 
 Después de colocar una fotografía real, `image` puede ser `'/images/prototypes/boceto-chasis.jpg'`. Aquí la ruta es un texto, y `alt` es otro campo del mismo objeto. Rellena `description`, `date` y `stage` solo cuando conozcas la información. La fecha admite un periodo escrito; no exige un día exacto. La galería se actualiza automáticamente, sin editar JSX.
 
-El título y aviso de la galería están en `sections.journey.galleryTitle` y `galleryDescription` de `project.js`. Actualiza el aviso cuando sustituyas los ejemplos por registros reales.
+En la propuesta visual 2.0, solo aparecen los registros con `published: true`. Mantén `published: false` para ejemplos, borradores o información sin revisar. Cuando exista un registro real, completa sus textos y activa `published: true`; la fotografía sigue siendo opcional. Publicar un registro no equivale a verificar las capacidades del prototipo.
+
+El título y aviso de la galería están en `sections.journey.galleryTitle`, `galleryDescription` y `galleryPending` de `project.js`. `galleryPending` aparece cuando no hay registros publicados, sin mostrar ejemplos como avances reales.
 
 ## 7. Indicar el estado con rigor
 
@@ -137,3 +192,40 @@ Los integrantes de la misma carrera pueden compartir representación. Un valor d
 ## Revisar antes de entregar
 
 Ejecuta `npm.cmd run dev`, abre la dirección que muestra Vite y revisa escritorio y móvil. Comprueba navegación, imágenes, textos alternativos y estados. Después ejecuta `npm.cmd run lint` y `npm.cmd run build`. Ninguno de estos pasos publica la web ni crea commits.
+
+## Contenido y movimiento en la propuesta 2.0
+
+En `project.js`, `sections.home.facts` permite editar el resumen de portada. `visualTitle` y `visualNote` describen el esquema abstracto; conserva su aclaración de que no representa mediciones. Una fotografía real en `sections.home.image` tiene prioridad como fondo de toda la portada, sin editar Home. El esquema permanece superpuesto.
+
+`sections.about.process` organiza la explicación del monitoreo previsto. Cada paso tiene `title` y `text`. Las características siguen en `sections.features.items`: textos, imagen opcional y estado. No atribuyas integración o validación a componentes sin documentación.
+
+La línea de tiempo utiliza `sections.journey.items`. Cada etapa conserva `title`, `text` y `status`. `future: true` dibuja la etapa como futura con un marcador de contorno; no añade fechas ni afirma resultados. El texto del estado debe indicar también que es una etapa prevista, sin depender únicamente del color. Las etapas preliminares existentes no equivalen a capacidades implementadas o verificadas.
+
+Las entradas duran 1,2 segundos, con pequeños retrasos escalonados de hasta 270 ms. Pueden repetirse al volver a entrar: primero el elemento debe salir completamente de la pantalla y superar un margen adicional de 120 px. Los pequeños movimientos cerca del borde no las reactivan. Si la persona tiene activada la opción de reducir movimiento, no se aplican animaciones ni desplazamiento suave. Si no se puede activar el observador, todo el contenido sigue visible. No hace falta instalar una biblioteca adicional.
+
+### Fondo agrícola de la portada
+
+La portada ya incluye una fotografía real descargada de Unsplash, almacenada localmente:
+
+- **Archivo:** `public/images/hero/tim-mossholder-campo-agricola-4DLnYJQE6kw.jpg`.
+- **Autor:** Tim Mossholder.
+- **Fotografía seleccionada:** [campo agrícola con cultivos y suelo visible, 4DLnYJQE6kw](https://unsplash.com/fr/photos/champ-de-plantes-a-feuilles-vertes-4DLnYJQE6kw).
+- **Versión local:** JPEG de 1920 px de ancho, obtenido del CDN oficial con compresión de calidad 65. [Descarga utilizada](https://images.unsplash.com/photo-1522120679444-b967faef8c38?fm=jpg&fit=max&w=1920&q=65).
+- **Licencia indicada por la fuente:** [Unsplash License](https://unsplash.com/license).
+
+Es una fotografía agrícola de referencia, no una fotografía del robot, del lugar de las pruebas ni evidencia del proyecto AgroBot. El crédito y el enlace a la fuente aparecen discretamente en la portada. La web carga el archivo local, sin depender de Unsplash durante la visita.
+
+La fotografía cubre el fondo de **toda Home**, detrás del título, los botones y el esquema. Solo la imagen recibe desenfoque suave; una capa verde oscuro mantiene el contraste. El esquema conceptual y el contenido no se desenfocan. El aviso contextual se edita en `sections.home.contextImageNote` y su enlace en `contextImageSource`.
+
+Si se retira el archivo de referencia, Vite detecta su ausencia al arrancar o compilar y Home conserva el fondo verde y el esquema. En desarrollo detecta también la incorporación o retirada del archivo y se reinicia; recarga el navegador si hace falta. Si un archivo existente no se puede cargar, se oculta únicamente la fotografía.
+
+Para reemplazarla más adelante por una fotografía real del proyecto, coloca ese archivo en `public/images/hero/` y completa `sections.home.image` en `src/content/project.js`:
+
+```js
+image: {
+  src: '/images/hero/prototipo-en-campo.jpg',
+  alt: 'Descripción de la fotografía real del prototipo'
+}
+```
+
+Esta ruta tiene prioridad sobre la fotografía de Tim Mossholder. No es necesario modificar JSX ni CSS. Se mantiene el tratamiento de fondo y el esquema. Revisa `projectImageNote` para que describa correctamente la fotografía y no sugiera pruebas realizadas sin evidencia. Al configurar una fotografía propia, deja de mostrarse el crédito de la fotografía de referencia. Como fondo contextual decorativo, la imagen no duplica su descripción en el lector de pantalla; los textos y el aviso conceptual siguen visibles. Para volver al campo de referencia, deja `image.src: ''`. Después de cambiar imágenes para una versión compilada, ejecuta de nuevo `npm.cmd run build`.

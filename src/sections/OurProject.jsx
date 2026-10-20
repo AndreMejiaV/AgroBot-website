@@ -10,7 +10,7 @@ export default function OurProject() {
     {team.length > 0 && <div className={styles.teamSection}>
       <h3 id="team-title">{teamContent.title}</h3>
       <ul className={styles.team} aria-labelledby="team-title">
-        {team.map(member => <li key={member.id}>
+        {team.map(member => <li key={member.id} data-reveal>
           <TeamAvatar image={member.image} alt={member.alt} profileType={member.profileType} />
           <div>
             <h4>{member.name}</h4>

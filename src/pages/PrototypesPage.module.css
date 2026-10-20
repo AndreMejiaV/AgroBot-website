@@ -1,0 +1,46 @@
+.page { padding-block: 2rem 4rem; }
+.back { font-size: .85rem; text-underline-offset: .3rem; }
+.heading { margin-block: 2rem 2.5rem; }
+.heading h1 { font-size: clamp(2.6rem, 5vw, 4.5rem); max-width: 17ch; margin-block: 1rem; }
+.heading > p:last-child { max-width: 65ch; }
+.tabs { display: flex; gap: 1.5rem; border-bottom: 1px solid var(--color-border); }
+.page button { font: inherit; color: inherit; cursor: pointer; }
+.tabs button { background: none; border: 0; border-bottom: 3px solid transparent; padding: .9rem .25rem; font-weight: 600; transition: border-color 250ms, color 250ms; }
+.tabs button[aria-selected="true"] { border-bottom-color: var(--color-primary); color: var(--color-forest); }
+.tabs button:hover { color: var(--color-forest); }
+.page :focus-visible, .viewer :focus-visible { outline: 3px solid var(--color-forest); outline-offset: 4px; }
+.panel { padding-top: 2rem; animation: appear 350ms ease; }
+.introduction { max-width: 70ch; font-size: .95rem; }
+.sketches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; margin-top: 2rem; }
+.sketches article { min-width: 0; border-top: 1px solid var(--color-border); padding-top: 1rem; }
+.sketches h2 { font-size: 1.25rem; margin: 0 0 1rem; }
+.sketches article > p { font-size: .9rem; }
+.pending { padding-block: 1rem; margin: 0; font-size: .85rem; color: var(--color-forest); }
+.imageButton { position: relative; width: 100%; display: block; padding: 0; border: 0; background: none; }
+.imageButton img { display: block; width: 100%; height: auto; max-height: 460px; object-fit: contain; }
+.expand { display: flex; justify-content: space-between; font-size: .75rem; padding-block: .75rem; text-align: left; color: var(--color-forest); }
+.imageButton:hover .expand { text-decoration: underline; text-underline-offset: .25rem; }
+.modelHeading { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; align-items: start; margin-bottom: 2rem; }
+.modelHeading h2 { font-size: 1.6rem; margin: 0; }
+.modelHeading p { font-size: .95rem; margin: 0; max-width: 68ch; }
+.model { display: grid; grid-template-columns: minmax(0, 1fr) 150px; gap: 2rem; align-items: start; }
+.mainView { min-width: 0; margin: 0; border-top: 1px solid var(--color-border); animation: appear 350ms ease; }
+.mainView img { max-height: 560px; }
+.mainView figcaption { font-size: .8rem; padding-top: .5rem; }
+.perspectives { display: grid; gap: .75rem; }
+.perspectives button { border: 1px solid var(--color-border); border-radius: .2rem; padding: .5rem; background: none; text-align: left; transition: border-color 250ms, background-color 250ms; }
+.perspectives button[aria-pressed="true"] { border-color: var(--color-forest); background: #56c02b0d; }
+.perspectives img { display: block; width: 100%; height: 85px; object-fit: contain; }
+.perspectives button > span:first-child { font-size: .8rem; }
+.thumbnailLabel { display: block; font-size: .75rem; margin-top: .3rem; }
+.perspectives button > span:first-child + .thumbnailLabel { display: none; }
+.viewer { width: min(1100px, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); padding: 1.25rem; background: var(--color-background); color: var(--color-text); border: 1px solid var(--color-border); border-radius: .25rem; }
+.viewer::backdrop { background: #163828e6; }
+.viewerBar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+.viewerBar h2 { font-size: 1.2rem; margin: 0; }
+.viewerBar button { font: inherit; background: var(--color-dark-green); color: var(--color-background); border: 0; border-radius: .2rem; padding: .5rem 1rem; cursor: pointer; }
+.viewer > img { width: 100%; max-height: calc(100dvh - 12rem); object-fit: contain; display: block; }
+.viewer > a { display: inline-block; margin-top: 1rem; font-size: .85rem; }
+@keyframes appear { from { opacity: .65; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 700px) { .sketches, .modelHeading { grid-template-columns: 1fr; gap: 1.5rem; } .model { grid-template-columns: 1fr; gap: 1rem; } .perspectives { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; } .perspectives img { height: 65px; } .heading { margin-block: 1.5rem 2rem; } }
+@media (prefers-reduced-motion: reduce) { .panel, .mainView { animation: none; } .page button { transition: none; } }
