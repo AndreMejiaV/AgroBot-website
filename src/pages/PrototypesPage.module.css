@@ -1,0 +1,78 @@
+.page { padding-block: 2rem 4rem; }
+.back { font-size: .85rem; text-underline-offset: .3rem; }
+.heading { margin-block: 2rem 2.5rem; }
+.heading h1 { font-size: clamp(2.6rem, 5vw, 4.5rem); max-width: 17ch; margin-block: 1rem; }
+.heading > p:last-child { max-width: 65ch; }
+.tabs { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; border-bottom: 1px solid var(--color-border); }
+.mediaGroup { margin-block: 2rem 3rem; min-width: 0; }
+.mediaGroup button { font: inherit; color: inherit; cursor: pointer; }
+.mediaGroup :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 4px; }
+.singleMedia { max-width: 850px; }
+.page button { font: inherit; color: inherit; cursor: pointer; }
+.tabs button { background: none; border: 0; border-bottom: 3px solid transparent; padding: .9rem .25rem; font-weight: 600; transition: border-color 250ms, color 250ms; }
+.tabs button[aria-selected="true"] { border-bottom-color: var(--color-primary); color: var(--color-text-accent); }
+.tabs button:hover { color: var(--color-text-accent); }
+.page :focus-visible, .viewer :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 4px; }
+.panel { padding-top: 2rem; animation: appear 350ms ease; }
+.introduction { max-width: 70ch; font-size: .95rem; }
+.introduction, .heading > p:last-child, .modelHeading p { color: var(--color-text-secondary); }
+.sketches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; margin-top: 2rem; }
+.sketches article { min-width: 0; border-top: 1px solid var(--color-border); padding-top: 1rem; }
+.sketches h2 { font-size: 1.25rem; margin: 0 0 1rem; }
+.sketches article > p { font-size: .9rem; }
+.pending { padding-block: 1rem; margin: 0; font-size: .85rem; color: var(--color-text-accent); }
+.imageButton { position: relative; width: 100%; display: block; padding: 0; border: 0; background: none; }
+.imageButton img { display: block; width: 100%; height: auto; max-height: 460px; object-fit: contain; }
+.imageButton img, .perspectives img, .viewerImage img { background: var(--color-image-background); }
+.expand { display: flex; justify-content: space-between; font-size: .75rem; padding-block: .75rem; text-align: left; color: var(--color-text-accent); }
+.imageButton:hover .expand { text-decoration: underline; text-underline-offset: .25rem; }
+.modelHeading { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; align-items: start; margin-bottom: 2rem; }
+.modelHeading h2 { font-size: 1.6rem; margin: 0; }
+.modelHeading p { font-size: .95rem; margin: 0; max-width: 68ch; }
+.model { display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 2rem; align-items: start; }
+.mainView { min-width: 0; margin: 0; border-top: 1px solid var(--color-border); animation: appear 350ms ease; }
+.mainView img { max-height: 560px; }
+.mainView .imageButton img { max-height: 640px; background: var(--color-surface); }
+.mainView figcaption { font-size: .8rem; padding-top: .5rem; }
+.perspectives { display: grid; gap: .75rem; }
+.perspectives button { border: 1px solid var(--color-border); border-radius: .2rem; padding: .5rem; background: none; text-align: left; transition: border-color 250ms, background-color 250ms; }
+.perspectives button[aria-pressed="true"] { border-color: var(--color-primary); background: var(--color-selection); }
+.perspectives button:hover { border-color: var(--color-text-accent); background: var(--color-selection); }
+.perspectives button[aria-pressed="true"] { box-shadow: inset 0 0 0 1px var(--color-primary); }
+.perspectives button[aria-pressed="true"] .thumbnailLabel { font-weight: 700; color: var(--color-text-accent); }
+.perspectives img { display: block; width: 100%; height: 112px; object-fit: contain; }
+.perspectives button > span:first-child { font-size: .8rem; }
+.thumbnailLabel { display: block; font-size: .75rem; margin-top: .3rem; }
+.perspectives button > span:first-child + .thumbnailLabel { display: none; }
+.viewer { width: min(1100px, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); padding: 1.25rem; overflow-y: auto; background: var(--color-background); color: var(--color-text); border: 1px solid var(--color-border); border-radius: .25rem; animation: viewerOpen 180ms ease; }
+.viewer::backdrop { background: #163828e6; }
+.viewerBar { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-bottom: .75rem; background: var(--color-background); }
+.viewerBar h2 { font-size: 1.2rem; margin: 0; }
+.viewerBar button { font: inherit; min-height: 44px; flex-shrink: 0; background: var(--color-dark-green); color: var(--color-on-dark); border: 0; border-radius: .2rem; padding: .5rem 1rem; cursor: pointer; }
+.viewerImage { animation: appear 250ms ease; }
+.viewerImage img { width: 100%; height: auto; max-height: max(160px, calc(100dvh - 20rem)); object-fit: contain; display: block; }
+.zoomControls { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: .75rem; }
+.zoomControls button { min-width: 44px; min-height: 44px; padding: .5rem .75rem; border: 1px solid var(--color-border); border-radius: .2rem; background: var(--color-surface); color: var(--color-text-accent); font: inherit; cursor: pointer; }
+.zoomControls button:disabled { opacity: .45; cursor: default; }
+.zoomControls button:hover:not(:disabled) { border-color: var(--color-text-accent); }
+.zoomControls output { min-width: 5ch; text-align: center; font-size: .85rem; }
+.zoomHint { font-size: .8rem; color: var(--color-text-secondary); margin-bottom: .75rem; }
+.zoomViewport { position: relative; width: 100%; max-height: max(160px, calc(100dvh - 27rem)); overflow: auto; overscroll-behavior: contain; background: var(--color-image-background); border: 1px solid var(--color-border); }
+.zoomViewport[data-zoomed] { cursor: grab; }
+.zoomViewport[data-zoomed]:active { cursor: grabbing; }
+.zoomCanvas { position: absolute; top: 0; left: 0; transition: width 140ms ease, height 140ms ease; }
+.zoomCanvas img { width: 100%; height: 100%; max-height: none; object-fit: contain; user-select: none; }
+.viewerHint, .viewerDescription { font-size: .85rem; color: var(--color-text-secondary); }
+.viewerNavigation { display: flex; gap: 1rem; align-items: center; justify-content: center; margin-top: 1rem; }
+.viewerNavigation button { width: 44px; height: 44px; border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text-accent); font: inherit; font-size: 1.2rem; border-radius: .2rem; cursor: pointer; }
+.viewerNavigation button:hover:not(:disabled) { border-color: var(--color-text-accent); }
+.viewerNavigation button:disabled { opacity: .4; cursor: default; }
+.viewerNavigation p { min-width: 4ch; margin: 0; text-align: center; font-size: .85rem; }
+.viewerDescription { margin: 1rem 0 0; }
+.viewer[data-closing] { animation: viewerClose 140ms ease forwards; }
+.viewer > a { display: inline-block; margin-top: 1rem; font-size: .85rem; }
+@keyframes viewerOpen { from { opacity: 0; } to { opacity: 1; } }
+@keyframes viewerClose { to { opacity: 0; } }
+@keyframes appear { from { opacity: .65; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 700px) { .sketches, .modelHeading { grid-template-columns: 1fr; gap: 1.5rem; } .model { grid-template-columns: 1fr; gap: 1rem; } .perspectives { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; } .perspectives img { height: 85px; } .heading { margin-block: 1.5rem 2rem; } }
+@media (prefers-reduced-motion: reduce) { .panel, .mainView, .viewer, .viewerImage, .viewer[data-closing] { animation: none; } .page button, .zoomCanvas { transition: none; } }

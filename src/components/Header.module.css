@@ -1,0 +1,25 @@
+
+.header { position: sticky; top: 0; z-index: 20; background: var(--color-background); border-bottom: 1px solid var(--color-border); }
+.inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: .9rem; }
+.brand { display: inline-flex; align-items: center; gap: .5rem; color: var(--color-brand); font-size: 1.5rem; font-weight: 750; letter-spacing: -.04em; text-decoration: none; }
+.brandIcon { width: 1em; height: 1em; flex-shrink: 0; }
+.brand { margin-right: auto; }
+.themeToggle { display: inline-grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; padding: 0; color: var(--color-brand); background: none; border: 1px solid var(--color-border); border-radius: .2rem; cursor: pointer; }
+.themeToggle:hover { background: var(--color-selection); }
+.themeToggle:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 4px; }
+.nav { display: flex; flex-wrap: wrap; gap: .3rem 1.15rem; }
+.nav a { position: relative; font-size: .78rem; text-decoration: none; padding-block: .55rem; transition: color 320ms ease; }
+.nav a::after { content: ''; position: absolute; bottom: .1rem; left: 0; width: 100%; height: 2px; background: var(--color-primary); transform: scaleX(0); transform-origin: left; transition: transform 320ms ease; }
+.nav a:hover,.nav a[aria-current] { color: var(--color-text-accent); }
+.nav a:hover::after,.nav a[aria-current]::after { transform: scaleX(1); }
+.menuToggle { display: none; align-items: center; gap: .75rem; background: none; color: var(--color-brand); border: 1px solid var(--color-border); border-radius: .2rem; padding: .55rem .75rem; font: inherit; font-size: .8rem; min-height: 44px; cursor: pointer; }
+.menuToggle:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 4px; }
+@media (max-width: 700px) {
+  .inner { flex-wrap: wrap; gap: 0 1rem; padding-block: .6rem; }
+  .brand { font-size: 1.3rem; }
+  .menuToggle { display: inline-flex; }
+  .nav { display: none; order: 4; flex-basis: 100%; flex-direction: column; gap: .25rem; margin-top: .75rem; padding-block: .5rem; border-top: 1px solid var(--color-border); }
+  .nav[data-open] { display: flex; }
+  .nav a { width: fit-content; min-height: 44px; padding: .6rem .25rem; font-size: .9rem; }
+}
+@media (prefers-reduced-motion: reduce) { .nav a,.nav a::after { transition: none; } }
