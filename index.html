@@ -3,6 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem('agrobot-theme') === 'dark' ? 'dark' : 'light'
+      } catch {
+        document.documentElement.dataset.theme = 'light'
+      }
+    </script>
+    <style>
+      html { background: #F7F8F3; color-scheme: light; }
+      html[data-theme="dark"] { background: #111D17; color-scheme: dark; }
+    </style>
     <meta name="theme-color" content="#163828" />
     <link rel="icon" href="data:," />
     <meta name="description" content="AgroBot: proyecto universitario de UTEC de robótica agrícola en desarrollo para el monitoreo y mapeo del suelo." />

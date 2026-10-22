@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import SiteLink from '../components/SiteLink'
 import ImageViewer from '../components/ImageViewer'
+import MediaGallery from '../components/MediaGallery'
+import { physicalAssemblies, digitalDesigns } from '../content/development'
 import { physicalModel, prototypePage as content, sketches } from '../content/prototypes'
 import styles from './PrototypesPage.module.css'
 
@@ -22,12 +24,15 @@ function Thumbnail({ item }) {
 
 export default function PrototypesPage() {
   const [category, setCategory] = useState('2d')
-  const [selectedView, setSelectedView] = useState(0)
+  const [selectedView, setSelectedView] = useState(physicalModel.views[0]?.id)
   const [expanded, setExpanded] = useState(null)
   const tabs = useRef([])
+  const mainView = useRef(null)
   const views = physicalModel.views
-  const current = views[selectedView] || views[0]
-  const categories = [{ id: '2d', label: content.sketchesLabel }, { id: '3d', label: content.modelLabel }]
+  const current = views.find(item => item.id === selectedView) || views[0]
+  const groups = category === 'physical' ? physicalAssemblies : digitalDesigns
+  const gallery = (category === '2d' ? sketches : category === '3d' ? views : groups.flatMap(group => group.views)).filter(item => item.image?.trim())
+  const categories = [{ id: '2d', label: content.sketchesLabel }, { id: '3d', label: content.modelLabel }, { id: 'physical', label: content.physicalLabel }, { id: 'digital', label: content.digitalLabel }]
 
   function handleTabKey(event, index) {
     let next
@@ -60,27 +65,28 @@ export default function PrototypesPage() {
         <div className={styles.sketches}>
           {sketches.map(item => <article key={item.id}>
             <h2>{item.title}</h2>
-            <PrototypeImage key={item.image || item.id} item={item} onExpand={setExpanded} />
+            <PrototypeImage key={item.image || item.id} item={item} onExpand={item => setExpanded(item.id)} />
             {item.description?.trim() && <p>{item.description}</p>}
           </article>)}
         </div>
-      </> : <>
+      </> : category === '3d' ? <>
         <div className={styles.modelHeading}><h2>{physicalModel.title}</h2><p>{content.modelDescription}</p></div>
-        {current && <div className={styles.model}>
+        {current && <div ref={mainView} className={styles.model}>
           <figure className={styles.mainView} key={current.id}>
-            <PrototypeImage key={current.image || current.id} item={current} onExpand={setExpanded} />
+            <PrototypeImage key={current.image || current.id} item={current} onExpand={item => setExpanded(item.id)} />
             <figcaption>{current.title}</figcaption>
           </figure>
           <div className={styles.perspectives} role="group" aria-label="Perspectivas de la misma maqueta">
-            {views.map((item, index) => <button key={item.id} type="button" aria-pressed={selectedView === index}
-              aria-label={`Mostrar ${item.title} de la maqueta`} onClick={() => setSelectedView(index)}>
+            {views.map(item => <button key={item.id} type="button" aria-pressed={current.id === item.id}
+              aria-label={`Mostrar ${item.title} de la maqueta`} onClick={() => setSelectedView(item.id)}>
               <Thumbnail key={item.image || item.id} item={item} />
               <span className={styles.thumbnailLabel}>{item.title}</span>
             </button>)}
           </div>
         </div>}
-      </>}
+      </> : groups.map(group => <MediaGallery key={group.id} group={group} onExpand={item => setExpanded(item.id)} />)}
     </div>
-    {expanded && <ImageViewer image={expanded} onClose={() => setExpanded(null)} />}
+    {expanded && gallery.length > 0 && <ImageViewer images={gallery} initialId={expanded} returnFocusRef={mainView} enableZoom={category !== '3d'}
+      onSelect={item => { if (category === '3d') setSelectedView(item.id) }} onClose={() => setExpanded(null)} />}
   </div>
 }

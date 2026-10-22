@@ -13,7 +13,7 @@ export default function Home() {
         <div className={styles.layout}>
           <div className={styles.intro} data-reveal>
             <p className="eyebrow">{content.eyebrow}</p>
-            <h1 id="home-title">{content.title}</h1>
+            <h1 id="home-title">{content.title.split('\n').map((line, index) => <span key={line}>{index > 0 && <br />}{line}</span>)}</h1>
             <p className={styles.description}>{content.description}</p>
             <div className={styles.actions}>
               <a className={styles.link} href="#about">{content.cta} <span aria-hidden="true">↗</span></a>

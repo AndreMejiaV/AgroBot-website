@@ -1,5 +1,5 @@
 
-.home { position: relative; isolation: isolate; background: var(--color-dark-green); color: var(--color-background); padding-block: 2rem 0; overflow: clip; }
+.home { position: relative; isolation: isolate; background: var(--color-dark-green); color: var(--color-on-dark); padding-block: 2rem 0; overflow: clip; }
 .home :global(.eyebrow) { color: var(--color-accent); }
 .meta { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid #8be36a33; }
 .meta p { margin: 0; }

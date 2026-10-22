@@ -4,8 +4,8 @@ import { team, teamContent } from '../content/team'
 import TeamAvatar from '../components/TeamAvatar'
 import styles from './Sections.module.css'
 
-export default function OurProject() {
-  return <Section content={sections.ourProject}>
+export default function OurProject({ headingLevel = 2 }) {
+  return <Section content={sections.ourProject} headingLevel={headingLevel}>
     <p className="detail">{sections.ourProject.detail}</p>
     {team.length > 0 && <div className={styles.teamSection}>
       <h3 id="team-title">{teamContent.title}</h3>

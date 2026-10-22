@@ -1,4 +1,5 @@
 node_modules/
+.vercel/
 dist/
 dist-ssr/
 *.local
@@ -16,3 +17,13 @@ dist-ssr/
 .DS_Store
 Thumbs.db
 
+
+.vercel
+.env*
+
+# Local photo-research copies and one-off preparation scripts.
+/agrobot_fuentes_componentes/fuente-*.html
+/agrobot_fuentes_componentes/descarga_revisada.cjs
+/agrobot_fuentes_componentes/organizar_catalogo.cjs
+/agrobot_fuentes_componentes/public/
+/agrobot_fuentes_componentes/revision-originales/

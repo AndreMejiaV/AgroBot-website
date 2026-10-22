@@ -1,29 +1,51 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { navigation, project } from '../content/project'
 import styles from './Header.module.css'
 import SiteLink from './SiteLink'
+import ThemeToggle from './ThemeToggle'
 
-export default function Header({ prototypesPage = false }) {
-  const [active, setActive] = useState('home')
+export default function Header({ currentPath }) {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const header = useRef(null)
+  const toggle = useRef(null)
   useEffect(() => {
-    if (prototypesPage || !('IntersectionObserver' in window)) return
-    const visible = new Set()
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => entry.isIntersecting ? visible.add(entry.target.id) : visible.delete(entry.target.id))
-      const first = navigation.find(item => visible.has(item.id))
-      if (first) setActive(first.id)
-    }, { rootMargin: '-18% 0px -55% 0px' })
-    document.querySelectorAll('main > section').forEach(section => observer.observe(section))
-    return () => observer.disconnect()
-  }, [prototypesPage])
+    if (!menuOpen) return
+    const outside = event => {
+      if (!header.current?.contains(event.target)) setMenuOpen(false)
+    }
+    const escape = event => {
+      if (event.key !== 'Escape') return
+      setMenuOpen(false)
+      toggle.current?.focus()
+    }
+    document.addEventListener('pointerdown', outside)
+    document.addEventListener('keydown', escape)
+    return () => {
+      document.removeEventListener('pointerdown', outside)
+      document.removeEventListener('keydown', escape)
+    }
+  }, [menuOpen])
   return (
-    <header className={styles.header}>
+    <header ref={header} className={styles.header} onBlur={event => {
+      if (!event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false)
+    }}>
       <div className={`container ${styles.inner}`}>
-        <SiteLink className={styles.brand} href="/#home" aria-label={`${project.name}, inicio`}>{project.name}<span>UTEC</span></SiteLink>
-        <nav className={styles.nav} aria-label="Navegación principal">
-          {navigation.map(({ id, label }) => <SiteLink key={id} href={`/#${id}`} aria-current={!prototypesPage && active === id ? 'location' : undefined} onClick={() => setActive(id)}>{label}</SiteLink>)}
-          <SiteLink href="/prototipos" aria-current={prototypesPage ? 'page' : undefined}>Prototipos</SiteLink>
+        <SiteLink className={styles.brand} href="/" aria-label={`${project.name}, inicio`}>
+          <svg className={styles.brandIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="9" />
+            <ellipse cx="12" cy="12" rx="4" ry="9" />
+            <path d="M3 12h18" />
+          </svg>
+          {project.name}
+        </SiteLink>
+        <button ref={toggle} className={styles.menuToggle} type="button" aria-expanded={menuOpen}
+          aria-controls="main-navigation" aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          onClick={() => setMenuOpen(open => !open)}>Menú <span aria-hidden="true">{menuOpen ? '−' : '+'}</span></button>
+        <nav id="main-navigation" className={styles.nav} data-open={menuOpen || undefined} aria-label="Navegación principal">
+          {navigation.map(({ path, label }) => <SiteLink key={path} href={path}
+            aria-current={currentPath === path ? 'page' : undefined} onClick={() => setMenuOpen(false)}>{label}</SiteLink>)}
         </nav>
+        <ThemeToggle />
       </div>
     </header>
   )

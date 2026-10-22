@@ -1,0 +1,36 @@
+AGROBOT - IMAGENES REFERENCIALES DE COMPONENTES
+================================================
+
+Este ZIP contiene la lista exacta de 21 materiales de la captura de AgroBot,
+fuentes de imagen en Wikimedia Commons y un script para descargar fotografias
+(y tres ilustraciones tecnicas de LEDs) al ejecutar el script en una PC con internet.
+
+IMPORTANTE: LAS FOTOGRAFIAS NO ESTAN TODAVIA DENTRO DEL ZIP.
+En el entorno de preparacion no fue posible descargar los archivos multimedia.
+No es una galeria ya finalizada: es un paquete de fuentes verificadas y descarga automatica.
+
+19 materiales tienen una imagen de referencia identificada en Wikimedia Commons.
+2 materiales requieren fotografia propia o referencia exacta:
+  - Sensor de lluvia YL-83
+  - Soporte para sensor YL-83
+
+Varias imagenes representan la CLASE de componente, no necesariamente el modelo
+que el equipo comprara o usara. Revisar "observaciones" en el CSV.
+
+USO EN WINDOWS / INTELLIJ
+1. Extraer EL CONTENIDO de este ZIP en la raiz del proyecto AgroBot-website.
+2. Abrir IntelliJ. Pedir a Codex que ejecute "descargar_fotos.ps1" desde
+   la raiz del proyecto y revise el archivo RESULTADOS_DESCARGA.csv.
+   Alternativamente ejecutarlo desde PowerShell si la politica local lo permite.
+3. Las fotos se guardaran en public/images/components/catalogo/.
+4. Revisar visualmente cada una antes de pedirle a Codex que modifique Tecnologia.
+5. Conservar los creditos de autoria y enlaces a la licencia en la web.
+
+IMPORTANTE SOBRE LICENCIAS
+- Fotos Commons: sus licencias varian; revisar cada ficha de Wikimedia antes
+  de publicar; muchas CC BY / CC BY-SA requieren autor, licencia y enlace.
+- Las fotos genericas son RECURSOS DE REFERENCIA, NO fotos del proyecto real.
+- No usar ninguna foto como prueba de que el componente ya esta integrado.
+- Los SVG de LED son ilustraciones tecnicas libres, no fotos.
+
+Este paquete NO hace commits ni despliegues en Vercel.

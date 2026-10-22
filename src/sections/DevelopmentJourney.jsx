@@ -1,5 +1,6 @@
 import ContentImage from '../components/ContentImage'
 import { prototypes } from '../content/prototypes'
+import { developmentImages } from '../content/development'
 import Section from '../components/Section'
 import { sections } from '../content/project'
 import styles from './Sections.module.css'
@@ -15,6 +16,7 @@ export default function DevelopmentJourney() {
           <div className={styles.timelineContent}><span className={styles.stage}>{item.status}</span><h3>{item.title}</h3><p>{item.text}</p></div>
         </li>)}
       </ol>
+      <ContentImage {...developmentImages.platform} />
       <div className={styles.galleryHeading}>
         <h3 id="prototypes-title">{sections.journey.galleryTitle}</h3>
         <p>{documentedPrototypes.length ? sections.journey.galleryDescription : sections.journey.galleryPending}</p>

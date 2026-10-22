@@ -1,7 +1,7 @@
 :root {
   font-family: Inter, 'Segoe UI', system-ui, sans-serif;
-  color: #1E1E1E;
-  background: #F7F8F3;
+  color: var(--color-text);
+  background: var(--color-background);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -12,13 +12,34 @@
   --color-text: #1E1E1E;
   --color-accent: #8BE36A;
   --color-white: #FFFFFF;
+  --color-surface: #FFFFFF;
+  --color-text-secondary: #1E1E1E;
+  --color-text-accent: #1F4D2E;
+  --color-brand: #163828;
+  --color-focus: #1F4D2E;
+  --color-on-dark: #F7F8F3;
+  --color-selection: #56c02b0d;
+  --color-image-background: #F7F8F3;
   --color-border: #D9DFD4;
   line-height: 1.65;
 }
+:root[data-theme="dark"] {
+  --color-background: #111D17;
+  --color-surface: #1C3025;
+  --color-white: var(--color-surface);
+  --color-text: #F5F7F2;
+  --color-text-secondary: #B9C9BE;
+  --color-text-accent: #8BE36A;
+  --color-brand: #8BE36A;
+  --color-focus: #8BE36A;
+  --color-border: #385343;
+  --color-selection: #8be36a14;
+}
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 320px; }
+#main:focus { outline: none; }
 a { color: inherit; }
-a:focus-visible { outline: 3px solid var(--color-forest); outline-offset: 5px; }
+a:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 5px; }
 section { scroll-margin-top: 1.5rem; }
 h1, h2, h3 { line-height: 1.15; text-wrap: balance; }
 h1 { max-width: 15ch; font-size: clamp(2.6rem, 6vw, 5rem); letter-spacing: -.045em; margin: 1rem 0 1.5rem; }
@@ -26,9 +47,9 @@ h2 { max-width: 25ch; font-size: clamp(1.9rem, 3.4vw, 2.8rem); letter-spacing: -
 h3 { font-size: 1.15rem; margin: .5rem 0 .75rem; }
 p { margin: 0 0 1rem; }
 .container { width: min(1120px, calc(100% - 3rem)); margin-inline: auto; }
-.eyebrow { color: var(--color-forest); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.eyebrow { color: var(--color-text-accent); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .detail { max-width: 65ch; margin-top: 1rem; margin-bottom: 0; }
-.footer { padding-block: 2rem; font-size: .85rem; }
+.footer { padding-block: 2rem; font-size: .85rem; color: var(--color-text-secondary); }
 .footer p { margin-bottom: .4rem; }
 .footer a { display: inline-block; margin-top: .5rem; }
 .skip-link { position: absolute; top: -100px; left: 1rem; z-index: 10; padding: .75rem 1rem; background: var(--color-white); color: var(--color-text); }

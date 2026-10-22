@@ -2,20 +2,53 @@
 
 No necesitas modificar componentes React ni CSS. Edita los objetos de `src/content/`, conserva las comillas y separa los elementos con comas. Guarda los archivos en UTF-8.
 
+## Distribución entre las cuatro páginas
+
+### Catálogo de Tecnología
+
+«Ver función y detalles» abre un panel lateral en escritorio y una ventana inferior modal hasta 1000 px de ancho. Las tarjetas conservan su altura. El panel muestra función, notas de referencia y créditos; admite Escape, cierre desde el fondo y retorno del foco a la tarjeta. Las notas internas de descarga de `attribution.changes` siguen conservadas en los datos y documentos de fuentes, pero no se presentan como texto público. Los autores, las licencias y los enlaces de atribución siguen visibles en los detalles.
+
+La página `/tecnologia` presenta los 21 materiales de un único catálogo. Edita `src/content/components.js`: `technologyContent` contiene los textos de la página, `componentCategories` las funciones del filtro y `components` las fichas. Cada ficha tiene `id`, `name`, `quantity`, `category`, `description` (función prevista), `image`, `alt`, `referenceNote` y `attribution`. Las cantidades proceden de la lista de materiales y no indican existencias ni compras realizadas.
+
+Para sustituir una fotografía, conserva el original, coloca el nuevo archivo en `public/images/components/catalogo/` y actualiza `image`, `alt`, la nota de correspondencia y los créditos de esa ficha. Con `image: ''` se muestra «Fotografía pendiente». No uses ilustraciones como sustitutos. Los créditos desplegables conservan autor, fuente, URL original, licencia con enlace y cambios; actualiza también `public/images/components/catalogo/ATTRIBUTION.md` si cambias de recurso. El inventario CSV del paquete se conserva como registro de la revisión de fuentes.
+
+Para añadir un material, copia un objeto, asigna un `id` único y una categoría existente. Los filtros y sus contadores se actualizan automáticamente. Describe funciones previstas sin afirmar integración o resultados de pruebas; mantén las advertencias de modelos o características no confirmados. Las especificaciones anteriores siguen guardadas en `src/content/specifications.js`; esta etapa no las completa a partir de fotografías.
+
+La Navbar contiene únicamente Inicio (`/`), Prototipos (`/prototipos`), Tecnología (`/tecnologia`) y Equipo (`/equipo`). Sus etiquetas y títulos de navegador están en `navigation`, al final de `src/content/project.js`.
+
+- **Inicio:** portada, propósito, resumen de las primeras tres características, desarrollo y sostenibilidad. Los enlaces contextuales llevan a Tecnología y Prototipos. Se conservan los destinos locales `#about` y `#development-journey` de los botones del hero.
+- **Prototipos:** reutiliza `src/content/prototypes.js` y el selector/galerías existentes, sin cambios de diseño.
+- **Tecnología:** presenta el catálogo de `components.js`, con filtros por función, cantidades, descripciones previstas y atribuciones de imágenes. Los datos de especificaciones se conservan para documentación posterior.
+- **Equipo:** reutiliza el contexto académico de `sections.ourProject` y los integrantes de `team.js`, con los avatares existentes.
+
+El resumen de Inicio utiliza los mismos objetos de características, sin crear copias de sus datos. Su título, introducción y enlace se editan en `sections.features.summaryTitle`, `summaryDescription` y `technologyLink`. Los textos y campos completos siguen disponibles en Tecnología.
+
+La navegación reutiliza History API y `SiteLink`, sin dependencias nuevas. Cambiar de página no recarga el documento y el historial Atrás/Adelante sigue funcionando. En móvil, el botón Menú abre/cierra las cuatro opciones; Escape lo cierra y devuelve el foco al botón. También se cierra al elegir un enlace o salir con el teclado.
+
+### Tema claro y oscuro
+
+El botón de sol/luna al extremo derecho del encabezado alterna los temas sin recargar. Sus etiquetas accesibles indican la acción: «Activar modo oscuro» o «Activar modo claro». Sigue disponible con el menú móvil cerrado y funciona con Enter o Espacio.
+
+El modo inicial es claro, independientemente del tema del sistema operativo. La elección se guarda en `localStorage` con la clave `agrobot-theme` (`light` o `dark`). Un script breve en `index.html` aplica la preferencia antes de montar React, evitando el destello del tema incorrecto. Si el almacenamiento está bloqueado, el botón funciona durante la visita y al navegar; al recargar se vuelve a claro. También se sincronizan los cambios entre pestañas del mismo sitio.
+
+Los colores están centralizados en `src/styles/global.css`, en `:root` y `:root[data-theme="dark"]`. Los componentes utilizan variables para fondo, superficies, texto, acentos, bordes y foco. El hero y los bloques verdes conservan sus colores de marca y textos claros en ambos modos. Las fotografías no se invierten ni reciben filtros nuevos; los bocetos ampliados y las miniaturas tienen una base clara para conservar su legibilidad. Las animaciones y la preferencia de movimiento reducido no cambian.
+
+Para publicar, el servidor debe servir `index.html` al acceder directamente a `/prototipos`, `/tecnologia` y `/equipo`, manteniendo los archivos reales de `/assets/` y `/images/`. Consulta el ejemplo de configuración en `README.md`. Vite y su preview ya permiten revisar estas rutas localmente.
+
 ## Página independiente «Prototipos»
 
-Abre `/prototipos` desde la barra de navegación o el enlace de Development Journey. El selector permite alternar **Prototipos 2D** y **Maqueta 3D** sin recargar. Las fotografías originales todavía no están incorporadas; no se han añadido sustitutos. Puedes preparar estos seis archivos:
+Abre `/prototipos` desde la barra de navegación o el enlace de Development Journey. El selector permite alternar **Prototipos 2D** y **Maqueta 3D** sin recargar. Ya están incorporados estos seis archivos originales del proyecto, sin sustitutos ni alteraciones de color:
 
 ```text
-public/images/prototypes/2d/diseno-01.jpg
-public/images/prototypes/2d/diseno-02.jpg
-public/images/prototypes/2d/diseno-03.jpg
-public/images/prototypes/3d/maqueta-vista-01.jpg
-public/images/prototypes/3d/maqueta-vista-02.jpg
-public/images/prototypes/3d/maqueta-vista-03.jpg
+public/images/prototypes/2d/boceto_2d_1.png
+public/images/prototypes/2d/boceto_2d_2.png
+public/images/prototypes/2d/boceto_2d_3.png
+public/images/prototypes/3d/boceto_3d_1.jpg
+public/images/prototypes/3d/boceto_3d_2.jpg
+public/images/prototypes/3d/boceto_3d_3.jpg
 ```
 
-Usa la extensión real de tus originales (JPG, PNG o WebP). No basta con renombrar su extensión. Conserva la imagen completa y todas sus anotaciones. Los nombres anteriores son sugeridos; las rutas en los datos deben coincidir exactamente con los archivos que copies.
+Para añadir archivos nuevos, usa la extensión real de tus originales (JPG, PNG o WebP). No basta con renombrar su extensión. Conserva la imagen completa y todas sus anotaciones; las rutas en los datos deben coincidir exactamente con los archivos que copies. No hace falta modificar React ni CSS.
 
 ### Añadir los tres bocetos
 
@@ -26,7 +59,7 @@ En `src/content/prototypes.js`, edita **`sketches`**. Cada objeto corresponde a 
   id: 'design-01',
   title: 'Diseño 01',
   description: '',
-  image: '/images/prototypes/2d/diseno-01.jpg',
+  image: '/images/prototypes/2d/boceto_2d_1.png',
   alt: 'Descripción concreta del boceto original y sus anotaciones'
 }
 ```
@@ -40,15 +73,19 @@ Edita **`physicalModel.views`**, en el mismo archivo. Son tres vistas de **una s
 ```js
 {
   id: 'model-view-01',
-  title: 'Vista 01',
-  image: '/images/prototypes/3d/maqueta-vista-01.jpg',
+  title: 'Perspectiva 01',
+  image: '/images/prototypes/3d/boceto_3d_1.jpg',
   alt: 'Descripción de la perspectiva visible de la misma maqueta física'
 }
 ```
 
 Puedes cambiar el título por «Vista frontal» u otro ángulo solo después de revisar la foto. `physicalModel.title` y `prototypePage.modelDescription` contienen la explicación de su propósito visual. No atribuyas funcionamiento a mecanismos o sensores ni pruebas a esta maqueta.
 
-Las miniaturas cambian la fotografía principal. Pulsar una fotografía abre una vista ampliada, cerrable con **Escape** o **Cerrar**. El enlace al original permite examinar las anotaciones con el zoom del navegador. Las imágenes se muestran completas, sin recortes. El selector admite flechas izquierda/derecha, Inicio/Fin y Tab.
+Para añadir otra perspectiva de la misma maqueta, copia un objeto dentro de `physicalModel.views` con un `id` único y su ruta local; puedes añadir también `description`. Para quitar una perspectiva, elimina su objeto. La selección utiliza identificadores estables, no depende de que siempre existan exactamente tres vistas. Actualiza `physicalModel.title` si cambia la cantidad publicada. No presentes las perspectivas como maquetas diferentes.
+
+Las miniaturas cambian la fotografía principal y señalan la perspectiva activa. Pulsar una fotografía abre una vista ampliada, cerrable con **Escape**, **Cerrar** o pulsando el fondo exterior. Los botones **Imagen anterior/siguiente** y las flechas del teclado recorren únicamente la categoría abierta, de forma circular y sin reproducción automática. Un contador anuncia la posición. Al recorrer las perspectivas 3D, también se actualiza la selección de la imagen principal.
+
+El visor bloquea el desplazamiento del fondo, mantiene el foco dentro del diálogo y lo devuelve al botón original al cerrar. El enlace al original permite examinar las anotaciones con el zoom del navegador. Las imágenes se muestran completas, sin recortes ni filtros de inversión en modo oscuro. El selector de categorías admite flechas izquierda/derecha, Inicio/Fin y Tab. Las transiciones de categorías, perspectivas y visor se desactivan con la opción de reducir movimiento.
 
 Si no tienes una imagen, conserva `image: ''`: aparece un aviso breve y no se solicita un archivo inexistente. Las descripciones vacías no muestran párrafos. Las vistas pendientes siguen siendo seleccionables, pero no abren ampliaciones sin imagen.
 
@@ -229,3 +266,16 @@ image: {
 ```
 
 Esta ruta tiene prioridad sobre la fotografía de Tim Mossholder. No es necesario modificar JSX ni CSS. Se mantiene el tratamiento de fondo y el esquema. Revisa `projectImageNote` para que describa correctamente la fotografía y no sugiera pruebas realizadas sin evidencia. Al configurar una fotografía propia, deja de mostrarse el crédito de la fotografía de referencia. Como fondo contextual decorativo, la imagen no duplica su descripción en el lector de pantalla; los textos y el aviso conceptual siguen visibles. Para volver al campo de referencia, deja `image.src: ''`. Después de cambiar imágenes para una versión compilada, ejecuta de nuevo `npm.cmd run build`.
+
+## Fotografías de montajes y diseños técnicos
+
+Los ocho originales se conservan en `public/images/development/`, dentro de `mobile-platform/`, `electronics/`, `mechanics/` y `digital/`. No es necesario editar React para sustituirlos.
+
+Edita `src/content/development.js`: cada entrada de `developmentImages` contiene `image` (ruta desde `/images/`), `title`, `description`, `alt`, `category` y `assembly` (montaje al que pertenece). Para sustituir una imagen, copia el archivo nuevo a su carpeta y cambia únicamente `image`; conserva el original cuando necesites mantenerlo como registro. Las imágenes se muestran completas, sin filtros ni recortes.
+
+Para añadir una perspectiva, crea una entrada con un `id` único y añade su referencia al arreglo `views` del grupo correspondiente en `physicalAssemblies`. Por ejemplo, `views: [images.platform, images.electronicsTop, images.wheel, images.front]` corresponde a cuatro vistas del mismo montaje, no a cuatro robots. Los grupos con varias imágenes muestran miniaturas automáticamente. El visor permite ampliación, zoom, desplazamiento, flechas y Escape.
+
+`digitalDesigns` organiza Tinkercad e Inventor como trabajos diferentes. `technologyMedia` reutiliza las mismas entradas para Control electrónico, Movilidad y Sistema mecánico. Inicio usa `developmentImages.platform` en el bloque de desarrollo. Las rutas se escriben una sola vez en los datos.
+
+Completa las descripciones solo con información confirmada. Un Arduino Uno visible no define el controlador final; una captura digital no acredita una simulación exitosa. La función definitiva del mecanismo, integración de sensores, autonomía y capacidades de movimiento siguen pendientes de documentación. Las especificaciones técnicas se mantienen separadas y no se completan automáticamente a partir de fotografías.
+
